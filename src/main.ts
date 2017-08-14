@@ -59,17 +59,27 @@ class Keyring {
     }
 }
 
-const con = new KeyringConnection();
+function main() {
+    if (ARGV.length < 2) {
+        console.error("Usage: gjs gnome-keyring-diff.js <keyring1> <keyring2>");
+        return 1;
+    }
 
-const items = con.getAllItems();
+    const con = new KeyringConnection();
 
-ARGV[1] = 'login'
-const keyring1 = new Keyring(con, ARGV[0]);
-const keyring2 = new Keyring(con, ARGV[1]);
+    const items = con.getAllItems();
 
-keyring1.fillItemsFromAll(items);
-keyring2.fillItemsFromAll(items);
+    const keyring1 = new Keyring(con, ARGV[0]);
+    const keyring2 = new Keyring(con, ARGV[1]);
 
-keyring1.diff(keyring2);
+    keyring1.fillItemsFromAll(items);
+    keyring2.fillItemsFromAll(items);
 
-imports['mainloop'].run();
+    keyring1.diff(keyring2);
+
+    imports['mainloop'].run();
+
+    return 0;
+}
+
+main();
