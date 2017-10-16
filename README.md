@@ -13,7 +13,7 @@ First, download and build the project:
 The use this to run it:
 
 ```bash
-gjc dist/gnome-keyring-diff.js <keyring1> <keyring2>
+gjs dist/gnome-keyring-diff.js <keyring1> <keyring2>
 ```
 
 The keyring names are URL encoded versions of the keyring file names found in `~/local/share/keyrings`.

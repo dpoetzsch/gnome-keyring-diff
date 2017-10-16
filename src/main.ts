@@ -67,6 +67,23 @@ function main() {
 
     const con = new KeyringConnection();
 
+    const collections = con.getCollections();
+    const selectedCollections = collections.filter(c => {
+        return c.path === `/org/freedesktop/secrets/collection/${ARGV[0]}` ||
+            c.path === `/org/freedesktop/secrets/collection/${ARGV[1]}`;
+    });
+
+    if (selectedCollections.length !== 2) {
+        console.error("At least one keyring was not found. Here are the available keyrings:");
+
+        for (const c of collections) {
+            const s = c.path.split("/");
+            console.error(s[s.length - 1]);
+        }
+
+        return 2;
+    }
+
     const items = con.getAllItems();
 
     const keyring1 = new Keyring(con, ARGV[0]);
