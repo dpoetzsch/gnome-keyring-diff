@@ -59,15 +59,30 @@ class Keyring {
     }
 }
 
+function listKeyrings(collections: Item[], logger = console.log) {
+    for (const c of collections) {
+        const s = c.path.split("/");
+        logger(s[s.length - 1]);
+    }
+}
+
 function main() {
-    if (ARGV.length < 2) {
-        console.error("Usage: gjs gnome-keyring-diff.js <keyring1> <keyring2>");
+    if (ARGV.length < 1 || (ARGV.length === 1 && ARGV[0] !== 'list')) {
+        console.error("Usage:");
+        console.error("    gjs gnome-keyring-diff.js list");
+        console.error("    gjs gnome-keyring-diff.js <keyring1> <keyring2>");
         return 1;
     }
 
     const con = new KeyringConnection();
 
     const collections = con.getCollections();
+
+    if (ARGV.length === 1 && ARGV[0] === 'list') {
+        listKeyrings(collections);
+        return 0;
+    }
+
     const selectedCollections = collections.filter(c => {
         return c.path === `/org/freedesktop/secrets/collection/${ARGV[0]}` ||
             c.path === `/org/freedesktop/secrets/collection/${ARGV[1]}`;
@@ -75,12 +90,7 @@ function main() {
 
     if (selectedCollections.length !== 2) {
         console.error("At least one keyring was not found. Here are the available keyrings:");
-
-        for (const c of collections) {
-            const s = c.path.split("/");
-            console.error(s[s.length - 1]);
-        }
-
+        listKeyrings(collections, console.error);
         return 2;
     }
 

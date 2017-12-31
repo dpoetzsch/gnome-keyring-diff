@@ -17,3 +17,9 @@ gjs dist/gnome-keyring-diff.js <keyring1> <keyring2>
 ```
 
 The keyring names are URL encoded versions of the keyring file names found in `~/.local/share/keyrings`.
+
+To list all available keyrings call
+
+```bash
+gjs dist/gnome-keyring-diff.js list
+```
