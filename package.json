@@ -1,12 +1,12 @@
 {
   "name": "gnome-keyring-diff",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "Diff two gnome keyrings",
   "main": "src/main.ts",
   "bin": "dist/gnome-keyring-diff.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "tsc"
+    "build": "tsc && patch dist/gnome-keyring-diff.js gnome-keyring-diff.dist.patch"
   },
   "author": "David Poetzsch-Heffter <davidpoetzsch@web.de>",
   "license": "ISC",
@@ -19,6 +19,6 @@
     "typescript": "^2.4.2"
   },
   "dependencies": {
-    "gnome-keyring-js": "~1.1.0"
+    "gnome-keyring-js": "~1.1.3"
   }
 }

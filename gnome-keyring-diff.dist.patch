@@ -1,0 +1,15 @@
+--- dist/gnome-keyring-diff.js	2023-01-02 16:39:38.739111693 +0100
++++ dist/gnome-keyring-diff.patched.js	2023-01-02 16:38:04.112527890 +0100
+@@ -32,12 +32,6 @@
+             Pango: { id: 'Pango', exports: imports.gi.Pango },
+             GObject: { id: 'GObject', exports: imports.gi.GObject }
+         })) },
+-    console: { value: {
+-            log: function () { print.apply(null, arguments); },
+-            warn: function () { print.apply(null, arguments); },
+-            error: function () { print.apply(null, arguments); },
+-            info: function () { print.apply(null, arguments); }
+-        } },
+     _: { value: imports.gettext.gettext }
+ });
+ Object.defineProperties(define, {
